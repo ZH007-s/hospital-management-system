@@ -215,9 +215,15 @@ public class PatientManagementPanel extends JPanel {
                     return;
                 }
 
+                String ageText = ageField.getText().trim();
+                if (ageText.isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog, "Age cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 int age;
                 try {
-                    age = Integer.parseInt(ageField.getText().trim());
+                    age = Integer.parseInt(ageText);
                     if (age <= 0 || age > 120) {
                         JOptionPane.showMessageDialog(dialog, "Age must be between 1 and 120", "Validation Error", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -246,12 +252,6 @@ public class PatientManagementPanel extends JPanel {
                 }
 
                 // Create patient object
-                String gender = "Other";
-                Object selectedGender = genderComboBox.getSelectedItem();
-                if (selectedGender != null) {
-                    gender = selectedGender.toString();
-                }
-
                 Patient patient = new Patient(
                         idField.getText(),
                         name,
@@ -259,7 +259,7 @@ public class PatientManagementPanel extends JPanel {
                         contact,
                         email,
                         addressField.getText().trim(),
-                        gender,
+                        genderComboBox.getSelectedItem().toString(),
                         "", // Blood group
                         "", // Allergies
                         disease
@@ -369,9 +369,15 @@ public class PatientManagementPanel extends JPanel {
                     return;
                 }
 
+                String ageText = ageField.getText().trim();
+                if (ageText.isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog, "Age cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 int age;
                 try {
-                    age = Integer.parseInt(ageField.getText().trim());
+                    age = Integer.parseInt(ageText);
                     if (age <= 0 || age > 120) {
                         JOptionPane.showMessageDialog(dialog, "Age must be between 1 and 120", "Validation Error", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -400,18 +406,12 @@ public class PatientManagementPanel extends JPanel {
                 }
 
                 // Update patient object
-                String gender = "Other";
-                Object selectedGender = genderComboBox.getSelectedItem();
-                if (selectedGender != null) {
-                    gender = selectedGender.toString();
-                }
-
                 patient.setName(name);
                 patient.setAge(age);
                 patient.setContact(contact);
                 patient.setEmail(email);
                 patient.setAddress(addressField.getText().trim());
-                patient.setGender(gender);
+                patient.setGender(genderComboBox.getSelectedItem().toString());
                 patient.setDisease(disease);
 
                 // Save patient
